@@ -7,15 +7,14 @@ function Card({ carpoolType, date, endLocation, memberNum, nickname, notice,
 
     function onClick(e) {
         const SERVER = 'http://localhost:8080';
+        const tokenHeader =
+        { "Authorization": localStorage.getItem('token') };
 
         let params = new URLSearchParams();
         params.append("name", "카풀채팅");
-        axios.post(SERVER + '/chat/room', params)
+        axios.post(SERVER + `/chat/room/${postId}`, {}, { headers: tokenHeader })
             .then((response) => {
-                    let sender = prompt('대화명을 입력해 주세요.');
-                    localStorage.setItem('wschat.sender', sender);
                     localStorage.setItem('wschat.roomId', response.data.roomId);
-
                     window.location.href = `/chat/room/${userId}`;
                 }
             )

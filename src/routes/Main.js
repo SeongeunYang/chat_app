@@ -6,11 +6,11 @@ function Main() {
     const [loading, setLoading] = useState(true);
     const [cards, setCards] = useState([]);
     const SERVER = 'http://localhost:8080';
-    const AWS = "http://13.125.249.172";
+    // const AWS = "http://13.125.249.172";
     const skiResort = "HighOne";
 
     const getCards = () => {
-        axios.get(AWS + `/board/carpool/${skiResort}?page=1&size=10`)
+        axios.get(SERVER + `/board/carpool/${skiResort}?page=1&size=10`)
             .then(function (response) {
                 setCards(response.data);
                 setLoading(false);
@@ -27,9 +27,12 @@ function Main() {
             window.location.href="/login";
         }
 
-        getCards()
+        getCards();
     }, [])
 
+    const mychat = () => {
+        window.location.href="/mychats";
+    }
 
     const test = () => {
         window.location.href="/write/freepost";
@@ -39,6 +42,7 @@ function Main() {
         <div>
             <div>
                 <button onClick={Logout}>로그아웃 하기!!!!!</button>
+                <button onClick={mychat}>내 채팅 목록 보기</button>
             </div>
             {loading ? <h1>서버가 안켜져 있어요 :(</h1> : <div>{cards.map(
                 (card) => (

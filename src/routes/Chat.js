@@ -2,13 +2,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
-import react from "react";
-import { type } from "@testing-library/user-event/dist/type";
 
 function Chat() {
     const SERVER = 'http://localhost:8080';
     const tokenHeader =
-        { "token": localStorage.getItem('token').split(" ")[1] }
+        { "Authorization": localStorage.getItem('token') }
 
     const roomId = localStorage.getItem('wschat.roomId');
     const sender = localStorage.getItem('wschat.sender');
@@ -19,24 +17,24 @@ function Chat() {
 
     const sock = new SockJS(SERVER + "/ws-stomp");
     const ws = Stomp.over(sock);
-
+//{simpUser: "nick"}
 
     useEffect(() => {
         ws.connect(tokenHeader, () => {
-                ws.subscribe(`/sub/chat/room/${roomId}`, function (message) {
-                    let recv = JSON.parse(message.body);
-                    console.log("recv : ", recv);
-                    recvMessage(recv);
-                });
-            }, function (error) {
-                alert("error " + error);
+            ws.subscribe(`/sub/chat/room/${roomId}`, function (message) {
+                let recv = JSON.parse(message.body);
+                console.log("recv : ", recv);
+                recvMessage(recv);
             });
+        }, function (error) {
+            alert("error " + error);
+        });
 
-        axios.get(SERVER + `/chat/room/${roomId}`)
-            .then((response) => {
-                setRoomName(response.data.name);
+        axios.get(SERVER + `/chat/message/${roomId}`, { headers: tokenHeader })
+            .then((res) => {
+                console.log("msgs : ", res.data);
+                setmsgList(res.data.roomContents);
             })
-            .catch((err) => { alert("입장 실패"); });
     }, []);
 
     const onChange = (e) => {
@@ -63,8 +61,8 @@ function Chat() {
             </div>
             <hr />
             <div>{msgList.map((item, index) => (
-                    <h3 key={index}>{item.sender} : {item.message}</h3>
-                )
+                <h3 key={index}>{item.sender} : {item.message}</h3>
+            )
             )}</div>
         </div >
     )
