@@ -17,7 +17,6 @@ function Chat() {
 
     const sock = new SockJS(SERVER + "/ws-stomp");
     const ws = Stomp.over(sock);
-//{simpUser: "nick"}
 
     useEffect(() => {
         ws.connect(tokenHeader, () => {
@@ -32,8 +31,9 @@ function Chat() {
 
         axios.get(SERVER + `/chat/message/${roomId}`, { headers: tokenHeader })
             .then((res) => {
-                console.log("msgs : ", res.data);
-                setmsgList(res.data.roomContents);
+                const recvMsgs = res.data;
+                console.log("response : ", recvMsgs);
+                setmsgList(recvMsgs);
             })
     }, []);
 
@@ -47,7 +47,7 @@ function Chat() {
     }
 
     const recvMessage = (recv) => {
-        setmsgList(prev => [recv, ...prev]);
+        setmsgList((prev) => [recv, ...prev]);
     }
 
     return (
@@ -60,11 +60,8 @@ function Chat() {
                 <button type="button" onClick={sendMessage}>보내기</button>
             </div>
             <hr />
-            <div>{msgList.map((item, index) => (
-                <h3 key={index}>{item.sender} : {item.message}</h3>
-            )
-            )}</div>
-        </div >
+            <div>{ msgList && msgList.map((item) => ( <h3 key={item.messageId}>{item.sender} : {item.message} ({item.createdAt})</h3> )) }</div>
+        </div>
     )
 }
 

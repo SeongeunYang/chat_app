@@ -40,8 +40,8 @@ function Login() {
 
     return (
         <div>
-            <p>ID : <input value="diddl12" type="text" onChange={onChangeID} /></p>
-            <p>PW : <input value="tjddms123!" type="text" onChange={onChangePW} /></p>
+            <p>ID : <input value={id} type="text" onChange={onChangeID} /></p>
+            <p>PW : <input value={pw} type="text" onChange={onChangePW} /></p>
             <button onClick={onClickLogin}>로그인</button>
         </div>
     );

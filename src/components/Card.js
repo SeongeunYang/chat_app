@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom"
 import axios from "axios";
 
 function Card({ carpoolType, date, endLocation, memberNum, nickname, notice,
@@ -8,17 +7,20 @@ function Card({ carpoolType, date, endLocation, memberNum, nickname, notice,
     function onClick(e) {
         const SERVER = 'http://localhost:8080';
         const tokenHeader =
-        { "Authorization": localStorage.getItem('token') };
+            { "Authorization": localStorage.getItem('token') };
 
-        let params = new URLSearchParams();
-        params.append("name", "카풀채팅");
         axios.post(SERVER + `/chat/room/${postId}`, {}, { headers: tokenHeader })
             .then((response) => {
-                    localStorage.setItem('wschat.roomId', response.data.roomId);
-                    window.location.href = `/chat/room/${userId}`;
-                }
+                const roomId = response.data.roomId;
+                localStorage.setItem('wschat.roomId', roomId);
+                localStorage.setItem('sender', nickname);
+
+                window.location.href = `/chat/myroom/${roomId}`;
+            }
             )
-            .catch(response => { alert("채팅방 개설에 실패하였습니다."); });
+            .catch((err) => {
+                alert(err); 
+            });
     }
 
     return (

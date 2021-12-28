@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ChatList from "../components/ChatList";
 
 function MyChatList () {
     const LOCAL = 'http://localhost:8080';
@@ -14,15 +15,19 @@ function MyChatList () {
 
         axios.get(LOCAL + '/chat/rooms', {headers: tokenHeader})
         .then(response => {
-            console.log(response);
-            //setChats(response.data)
+            console.log(response.data);
+            setChats(response.data);
         });
 
     }, [])
 
     return (
         <div>
-            <h1>내 채팅 목록</h1>
+            <h2>내 채팅 목록</h2>
+            <hr />
+            <div>{chats.map((item, index) => (
+                <ChatList key={index} roomName={item.roomName} roomId={item.roomId}/>
+            ))}</div>
         </div>
     );
 }
