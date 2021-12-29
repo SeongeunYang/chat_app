@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 function FreePost() {
     const SERVER = 'http://localhost:8080';
-    const AWS = "http://13.125.249.172";
+    //const AWS = "http://13.125.249.172";
     const skiResort = "HighOne";
     const tokenHeader =
         { "Authorization": localStorage.getItem('token') };
@@ -41,6 +41,10 @@ function FreePost() {
         axios.post(SERVER + `/board/${skiResort}/freeBoard`, formData, {headers: tokenHeader})
             .then((res)=>{
                 console.log(res);
+                setImg(emptyFile);
+                setTitle("");
+                setContent("");
+                window.location.href="/";
             })
     }
 

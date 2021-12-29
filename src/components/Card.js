@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function Card({ carpoolType, date, endLocation, memberNum, nickname, notice,
     postId, price, skiResort, startLocation, status, time, userId }) {
@@ -12,10 +13,14 @@ function Card({ carpoolType, date, endLocation, memberNum, nickname, notice,
         axios.post(SERVER + `/chat/room/${postId}`, {}, { headers: tokenHeader })
             .then((response) => {
                 const roomId = response.data.roomId;
+
+                localStorage.setItem('wschat.longRoomId', response.data.longRoomId);
+                localStorage.setItem('wschat.roomName', response.data.roomName);
                 localStorage.setItem('wschat.roomId', roomId);
                 localStorage.setItem('sender', nickname);
 
-                window.location.href = `/chat/myroom/${roomId}`;
+                //<Link to="/history">예제</Link>
+                window.location.href = "/chat/myroom";
             }
             )
             .catch((err) => {
@@ -26,6 +31,7 @@ function Card({ carpoolType, date, endLocation, memberNum, nickname, notice,
     return (
         <div style={{
             backgroundColor: "skyblue",
+            width: 700,
             margin: 10,
             padding: 10
         }}>
@@ -35,6 +41,7 @@ function Card({ carpoolType, date, endLocation, memberNum, nickname, notice,
             <p>인원 : {memberNum}</p>
             <p>카풀 비용 : {price}</p>
             <p>주의사항 : {notice}</p>
+            {/* <Link to="/chat/myroom"><button onClick={onClick}>채팅하기</button></Link> */}
             <button onClick={onClick}>채팅하기</button>
         </div>
     );

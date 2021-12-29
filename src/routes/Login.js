@@ -27,11 +27,11 @@ function Login() {
     }
 
     useEffect(() => {
-        axios.post(LOCAL + '/user/test/signup', {
+        axios.post(LOCAL + '/user/signup', {
             username: "diddl12",
             password: "tjddms123!",
             phoneNum: "01044172716",
-            nickname: "nick",
+            nickname: "diddl",
         }).then((res) => {
             alert("회원가입 완료");
         })

@@ -12,7 +12,7 @@ import MyChatList from "./routes/MyChatList"
 function App() {
   return <Router>
     <Switch>
-      <Route path="/chat/myroom/:roomName">
+      <Route path="/chat/myroom">
         <Chat />
       </Route>
       <Route path="/login">
