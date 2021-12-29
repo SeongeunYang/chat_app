@@ -27,8 +27,8 @@ function ChatList({ roomName, roomId, notReadCnt, lastMsg, lastMsgTime, userProf
             backgroundColor: "skyblue",
             width: 800,
             height: 50,
-            display: "table-cell",
-            verticalAlign: "middle"
+            display: "table-row-group",
+            verticalAlign: "middle",
         }}>
             <img src={userProfile} style={{
                 width: 50,

@@ -5,8 +5,8 @@ function Login() {
     // const LOCAL = 'http://localhost:8080';
     const AWS = "http://13.125.249.172";
 
-    const [id, setId] = useState("diddl12");
-    const [pw, setPw] = useState("tjddms123!");
+    const [id, setId] = useState("tjddms12");
+    const [pw, setPw] = useState("diddl123!");
 
     const onChangeID = (e) => {
         setId(e.target.value);
@@ -30,10 +30,10 @@ function Login() {
 
     useEffect(() => {
         axios.post(AWS + '/user/signup', {
-            username: "diddl12",
-            password: "tjddms123!",
-            phoneNum: "01044172716",
-            nickname: "diddl",
+            username: "tjddms12",
+            password: "diddl123!",
+            phoneNum: "01012341234",
+            nickname: "tjdkl111",
         }).then((res) => {
             alert("회원가입 완료");
         })

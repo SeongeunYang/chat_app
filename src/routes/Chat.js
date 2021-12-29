@@ -67,9 +67,9 @@ function Chat() {
         ws.disconnect();
     }
 
-    const onClick = () => {
+    const onClick = async() => {
         setModalIsOpen(true)
-        axios.get(AWS + `/user/introduction/${longRoomId}`, { headers: tokenHeader })
+        await axios.get(AWS + `/user/introduction/${longRoomId}`, { headers: tokenHeader })
             .then((res) => {
                 setOtherInfo(res.data);
             })
@@ -79,13 +79,15 @@ function Chat() {
         setMsg(e.target.value);
     }
 
-    const sendMessage = () => {
-        ws.send("/pub/chat/message", tokenHeader, JSON.stringify({ type: 'TALK', roomId: roomId, message: msg }));
-        setMsg("");
+    const sendMessage = async() => {
+        if(msg !== ""){
+            await ws.send("/pub/chat/message", tokenHeader, JSON.stringify({ type: 'TALK', roomId: roomId, message: msg }));
+            setMsg("");
+        }
     }
 
     const recvMessage = (recv) => {
-        setmsgList((prev) => [...prev, recv]);
+        setmsgList((prev) => [recv, ...prev]);
     }
 
     return (
