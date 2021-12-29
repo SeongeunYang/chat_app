@@ -40,8 +40,8 @@ function Chat() {
     //     console.log(history.block());
     // }, [history])
 
-    useEffect(() => {
-        ws.connect(tokenHeader, () => {
+    useEffect(async() => {
+        await ws.connect(tokenHeader, () => {
             ws.subscribe(`/sub/chat/room/${roomId}`, function (message) {
                 let recv = JSON.parse(message.body);
                 console.log("recv : ", recv);
