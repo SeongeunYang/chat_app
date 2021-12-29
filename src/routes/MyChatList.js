@@ -26,7 +26,14 @@ function MyChatList () {
             <h2>내 채팅 목록</h2>
             <hr />
             <div>{chats.map((item, index) => (
-                <ChatList key={index} roomName={item.roomName} roomId={item.roomId}/>
+                <ChatList key={index} 
+                    roomName={item.roomName} 
+                    roomId={item.roomId} 
+                    notReadCnt={item.notVerifiedMsgCnt} 
+                    lastMsg={item.lastMsg}
+                    lastMsgTime={item.lastMsgTime}
+                    userProfile={item.userProfile}
+                />
             ))}</div>
         </div>
     );

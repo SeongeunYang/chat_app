@@ -2,7 +2,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 
 
-function ChatList({ roomName, roomId }) {
+function ChatList({ roomName, roomId, notReadCnt, lastMsg, lastMsgTime, userProfile }) {
     const SERVER = 'http://localhost:8080';
     const tokenHeader =
         { "Authorization": localStorage.getItem('token') };
@@ -12,6 +12,7 @@ function ChatList({ roomName, roomId }) {
             .then((response) => {
                     const roomId = response.data.roomId;
                     localStorage.setItem('wschat.roomId', roomId);
+                    localStorage.setItem('wschat.longRoomId', response.data.longRoomId);
 
                     window.location.href = `/chat/myroom/${roomId}`;
                 }
@@ -27,7 +28,12 @@ function ChatList({ roomName, roomId }) {
             display: "table-cell",
             verticalAlign: "middle"
         }}>
-            <h3>{roomId} : {roomName}</h3>
+            <img src={userProfile} style={{
+                width: 50,
+                height: 50
+            }} />
+            <h3>{roomName} | {lastMsg}({lastMsgTime})</h3>
+            <h4>안 읽은 메세지 : {notReadCnt}개</h4>
         </div>
     );
 }
@@ -35,6 +41,10 @@ function ChatList({ roomName, roomId }) {
 ChatList.propTypes = {
     roomName: PropTypes.string.isRequired,
     roomId: PropTypes.string.isRequired,
+    notReadCnt: PropTypes.number.isRequired,
+    lastMsg: PropTypes.string.isRequired,
+    lastMsgTime: PropTypes.string.isRequired,
+    userProfile: PropTypes.string.isRequired,
 }
 
 export default ChatList;

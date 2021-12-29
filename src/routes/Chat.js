@@ -98,14 +98,21 @@ function Chat() {
                     <button onClick={() => setModalIsOpen(false)}>닫기</button>
                 </Modal>
                 <button onClick={onClick}>상대방 프로필 확인하기</button>
-                <button onClick={closeSocket}>나가기</button>
             </div>
             <div>
                 <label>내용</label><input type="text" value={msg} onChange={onChange} />
                 <button type="button" onClick={sendMessage}>보내기</button>
             </div>
             <hr />
-            <div>{msgList && msgList.map((item) => (<h3 key={item.messageId}>{item.sender} : {item.message} ({item.createdAt})</h3>))}</div>
+            {msgList && msgList.map((item) => (
+                <div key={item.messageId}>
+                    <img src={item.senderImg} style={{
+                        width: 50,
+                        height: 50
+                }}/>
+                    <h3>{item.sender} : {item.message} ({item.createdAt})</h3>
+                </div>
+            ))}
         </div>
     )
 }
