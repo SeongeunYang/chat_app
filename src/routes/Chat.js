@@ -5,7 +5,9 @@ import Stomp from 'stompjs';
 import Modal from 'react-modal';
 
 function Chat() {
-    const SERVER = 'http://localhost:8080';
+    // const SERVER = 'http://localhost:8080';
+    const AWS = "http://13.125.249.172";
+
     const tokenHeader =
         { "Authorization": localStorage.getItem('token') }
 
@@ -31,7 +33,7 @@ function Chat() {
 
     const [otherInfo, setOtherInfo] = useState(defaultInfo);
 
-    const sock = new SockJS(SERVER + "/ws-stomp");
+    const sock = new SockJS(AWS + "/ws-stomp");
     const ws = Stomp.over(sock);
 
     // useEffect(() => {
@@ -49,7 +51,7 @@ function Chat() {
             // window.location.href="/";
         });
 
-        axios.get(SERVER + `/chat/message/${roomId}`, { headers: tokenHeader })
+        axios.get(AWS + `/chat/message/${roomId}`, { headers: tokenHeader })
             .then((res) => {
                 const recvMsgs = res.data;
                 console.log("response : ", recvMsgs);
@@ -67,7 +69,7 @@ function Chat() {
 
     const onClick = () => {
         setModalIsOpen(true)
-        axios.get(SERVER + `/user/introduction/${longRoomId}`, { headers: tokenHeader })
+        axios.get(AWS + `/user/introduction/${longRoomId}`, { headers: tokenHeader })
             .then((res) => {
                 setOtherInfo(res.data);
             })

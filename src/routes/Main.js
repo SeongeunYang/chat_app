@@ -5,12 +5,12 @@ import Card from "../components/Card";
 function Main() {
     const [loading, setLoading] = useState(true);
     const [cards, setCards] = useState([]);
-    const SERVER = 'http://localhost:8080';
-    // const AWS = "http://13.125.249.172";
+    // const SERVER = 'http://localhost:8080';
+    const AWS = "http://13.125.249.172";
     const skiResort = "HighOne";
 
     const getCards = () => {
-        axios.get(SERVER + `/board/carpool/${skiResort}?page=1&size=10`)
+        axios.get(AWS + `/board/carpool/${skiResort}?page=1&size=10`)
             .then(function (response) {
                 setCards(response.data);
                 setLoading(false);

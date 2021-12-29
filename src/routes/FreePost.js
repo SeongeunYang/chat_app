@@ -2,8 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 
 function FreePost() {
-    const SERVER = 'http://localhost:8080';
-    //const AWS = "http://13.125.249.172";
+    // const SERVER = 'http://localhost:8080';
+    const AWS = "http://13.125.249.172";
     const skiResort = "HighOne";
     const tokenHeader =
         { "Authorization": localStorage.getItem('token') };
@@ -38,7 +38,7 @@ function FreePost() {
         formData.append('image', img);
         formData.append("requestDto", new Blob([JSON.stringify(requestDto)], {type: "application/json"}))
 
-        axios.post(SERVER + `/board/${skiResort}/freeBoard`, formData, {headers: tokenHeader})
+        axios.post(AWS + `/board/${skiResort}/freeBoard`, formData, {headers: tokenHeader})
             .then((res)=>{
                 console.log(res);
                 setImg(emptyFile);

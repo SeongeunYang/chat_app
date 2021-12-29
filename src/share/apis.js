@@ -15,20 +15,12 @@ export const apis = {
             password: pw,
             phoneNum: phNum,
             nickname: nick,
-        }).then((res) => {
-            console.log(res.data);
-            console.log(res.headers.authorization);
-            localStorage.setItem('token', res.headers.authorization);
-            window.location.href = "/";
-        }).catch((err) => { alert("로그인 실패"); }),
+        }),
 
     login: (id, pw) =>
         api.post('/user/login', {
             username: id,
             password: pw,
-        }).then((res) => {
-            alert("회원가입 완료");
-        })
-            .catch((err) => { alert("이미 회원임..!") }),
+        }),
 
 };

@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function Login() {
-    const LOCAL = 'http://localhost:8080';
+    // const LOCAL = 'http://localhost:8080';
+    const AWS = "http://13.125.249.172";
+
     const [id, setId] = useState("diddl12");
     const [pw, setPw] = useState("tjddms123!");
 
@@ -15,7 +17,7 @@ function Login() {
     }
 
     const onClickLogin = () => {
-        axios.post(LOCAL + '/user/login', {
+        axios.post(AWS + '/user/login', {
             username: id,
             password: pw,
         }).then((res) => {
@@ -27,7 +29,7 @@ function Login() {
     }
 
     useEffect(() => {
-        axios.post(LOCAL + '/user/signup', {
+        axios.post(AWS + '/user/signup', {
             username: "diddl12",
             password: "tjddms123!",
             phoneNum: "01044172716",
