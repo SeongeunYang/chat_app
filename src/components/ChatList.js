@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 
 
 function ChatList({ roomName, roomId, notReadCnt, lastMsg, lastMsgTime, userProfile }) {
-    // const SERVER = 'http://localhost:8080';
-    const AWS = "http://13.125.249.172";
+    const SERVER = 'http://localhost:8080';
+    const AWS = "http://13.125.35.82";
 
     const tokenHeader =
         { "Authorization": localStorage.getItem('token') };

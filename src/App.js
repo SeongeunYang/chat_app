@@ -8,6 +8,7 @@ import Chat from "./routes/Chat"
 import Login from "./routes/Login"
 import FreePost from "./routes/FreePost"
 import MyChatList from "./routes/MyChatList"
+import Snow from "./components/Snow"
 
 function App() {
   return <Router>
@@ -23,6 +24,9 @@ function App() {
       </Route>
       <Route path="/write/freepost">
         <FreePost />
+      </Route>
+      <Route path="/snow">
+        <Snow />
       </Route>
       <Route path="/">
         <Main />

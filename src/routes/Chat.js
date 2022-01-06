@@ -5,11 +5,10 @@ import Stomp from 'stompjs';
 import Modal from 'react-modal';
 
 function Chat() {
-    // const SERVER = 'http://localhost:8080';
-    const AWS = "http://13.125.249.172";
+    const SERVER = 'http://localhost:8080';
+    const AWS = "http://13.125.35.82";
 
-    const tokenHeader =
-        { "Authorization": localStorage.getItem('token') }
+    const tokenHeader = { "Authorization": localStorage.getItem('token') }
 
     const roomId = localStorage.getItem('wschat.roomId');
     const lsroomName = localStorage.getItem('wschat.roomName');
@@ -63,9 +62,9 @@ function Chat() {
         }
     }, []);
 
-    const closeSocket = () => {
-        ws.disconnect();
-    }
+    // const closeSocket = () => {
+    //     ws.disconnect();
+    // }
 
     const onClick = async() => {
         setModalIsOpen(true)

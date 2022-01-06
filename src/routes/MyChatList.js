@@ -3,8 +3,8 @@ import axios from "axios";
 import ChatList from "../components/ChatList";
 
 function MyChatList () {
-    //const LOCAL = 'http://localhost:8080';
-    const AWS = "http://13.125.249.172";
+    const LOCAL = 'http://localhost:8080';
+    const AWS = "http://13.125.35.82";
 
     const [chats, setChats] = useState([]);
     const tokenHeader =
@@ -15,7 +15,7 @@ function MyChatList () {
             window.location.href="/login";
         }
 
-        axios.get(AWS + '/chat/rooms', {headers: tokenHeader})
+        axios.get(LOCAL + '/chat/rooms', {headers: tokenHeader})
         .then(response => {
             console.log(response.data);
             setChats(response.data);

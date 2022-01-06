@@ -5,8 +5,8 @@ import Card from "../components/Card";
 function Main() {
     const [loading, setLoading] = useState(true);
     const [cards, setCards] = useState([]);
-    // const SERVER = 'http://localhost:8080';
-    const AWS = "http://13.125.249.172";
+    const SERVER = 'http://localhost:8080';
+    const AWS = "http://13.125.35.82";
     const skiResort = "HighOne";
 
     const getCards = () => {

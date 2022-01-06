@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function Login() {
-    // const LOCAL = 'http://localhost:8080';
-    const AWS = "http://13.125.249.172";
+    const LOCAL = 'http://localhost:8080';
+    const AWS = "http://13.125.35.82";
 
-    const [id, setId] = useState("tjddms12");
+    const [id, setId] = useState("tjddm12");
     const [pw, setPw] = useState("diddl123!");
 
     const onChangeID = (e) => {
@@ -17,7 +17,7 @@ function Login() {
     }
 
     const onClickLogin = () => {
-        axios.post(AWS + '/user/login', {
+        axios.post(LOCAL + '/user/login', {
             username: id,
             password: pw,
         }).then((res) => {
@@ -29,11 +29,11 @@ function Login() {
     }
 
     useEffect(() => {
-        axios.post(AWS + '/user/signup', {
-            username: "tjddms12",
+        axios.post(LOCAL + '/user/signup', {
+            username: "tjddm12",
             password: "diddl123!",
-            phoneNum: "01012341234",
-            nickname: "tjdkl111",
+            phoneNum: "01012343234",
+            nickname: "tjdkl11",
         }).then((res) => {
             alert("회원가입 완료");
         })

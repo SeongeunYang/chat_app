@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const LOCAL = 'http://localhost:8080';
-const AWS = "http://13.125.249.172";
+const AWS = "http://13.125.35.82";
 
 const api = axios.create({
     baseURL: LOCAL,
