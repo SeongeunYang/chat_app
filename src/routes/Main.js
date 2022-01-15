@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Card from "../components/Card";
+import {KAKAO_ADD_PROPERTIES} from "../share/kakaoAuth"
 
 function Main() {
     const [loading, setLoading] = useState(true);
@@ -20,6 +21,10 @@ function Main() {
     const Logout = () => {
         localStorage.removeItem('token');
         window.location.reload();
+    }
+
+    const addKakaoProperties = () => {
+        window.location.href = KAKAO_ADD_PROPERTIES;
     }
 
     useEffect(() => {
@@ -43,6 +48,7 @@ function Main() {
             <div>
                 <button onClick={Logout}>로그아웃 하기!!!!!</button>
                 <button onClick={mychat}>내 채팅 목록 보기</button>
+                <button onClick={addKakaoProperties}>카카오 추가 동의하기</button>
             </div>
             {loading ? <h1>서버가 안켜져 있어요 :(</h1> : <div>{cards.map(
                 (card) => (
@@ -64,7 +70,7 @@ function Main() {
                     />
                 )
             )}</div>}
-            <button onClick={test}>자유게시물 쓰기</button>pt>
+            <button onClick={test}>자유게시물 쓰기</button>
         </div>
     );
 }
