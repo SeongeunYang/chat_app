@@ -44,7 +44,7 @@ function FreePost() {
                 setImg(null);
                 setTitle("");
                 setContent("");
-                //window.location.href="/";
+                window.location.href="/";
             })
     }
 

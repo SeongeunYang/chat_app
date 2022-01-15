@@ -11,6 +11,8 @@ const KakaoAuthHandle = (props) => {
         .get(`http://localhost:8080/user/kakao/callback?code=${code}`)
         .then((res) => {
           localStorage.setItem('token', res.headers.authorization)
+          localStorage.setItem('userId', res.data)
+          console.log("window.location.href = KAKAO_ADD_PROPERTIES 실행")
           window.location.href = KAKAO_ADD_PROPERTIES;
         })
     }

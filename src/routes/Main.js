@@ -48,7 +48,7 @@ function Main() {
             <div>
                 <button onClick={Logout}>로그아웃 하기!!!!!</button>
                 <button onClick={mychat}>내 채팅 목록 보기</button>
-                <button onClick={addKakaoProperties}>카카오 추가 동의하기</button>
+                {/* <button onClick={addKakaoProperties}>카카오 추가 동의하기</button> */}
             </div>
             {loading ? <h1>서버가 안켜져 있어요 :(</h1> : <div>{cards.map(
                 (card) => (

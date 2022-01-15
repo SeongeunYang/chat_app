@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import axios from "axios";
+import {KAKAO_ADD_PROPERTIES} from "../share/kakaoAuth"
 import { Link } from "react-router-dom";
 
 function Card({ carpoolType, date, endLocation, memberNum, nickname, notice,
@@ -24,7 +25,10 @@ function Card({ carpoolType, date, endLocation, memberNum, nickname, notice,
                 window.location.href = "/chat/myroom";
             })
             .catch((err) => {
-                alert(err.response.data.errorMessage); 
+                if(err.response.data.errorMessage === "추가 동의 항목이 필요합니다."){
+                    window.location.href=KAKAO_ADD_PROPERTIES;
+                }
+                alert(err.response.data.errorMessage);
             });
     }
 
