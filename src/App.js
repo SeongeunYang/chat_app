@@ -12,6 +12,7 @@ import Snow from "./components/Snow"
 import Region from "./components/Region"
 import KakaoAuthHandle from "./components/KakaoAuthHandle"
 import KakaoAuthHandle2 from "./components/KakaoAuthHandle2"
+import NaverAuthHandle from "./components/NaverAuthHandle"
 
 function App() {
   return <Router>
@@ -26,6 +27,11 @@ function App() {
         exact 
         path="/user/kakao/callback"
         component={KakaoAuthHandle}
+      />
+      <Route 
+        exact 
+        path="/user/naver/callback"
+        component={NaverAuthHandle}
       />
       <Route path="/mychats">
         <MyChatList />

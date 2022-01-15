@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import {KAKAO_AUTH_URL} from "../share/kakaoAuth"
+import {NAVER_AUTH_URL} from "../share/naverAuth"
 
 function Login() {
     const LOCAL = 'http://localhost:8080';
@@ -45,6 +46,10 @@ function Login() {
         window.location.href = KAKAO_AUTH_URL;
     }
 
+    const naverLogin = () => {
+        window.location.href = NAVER_AUTH_URL;
+    }
+
     return (
         <div>
             <p>ID : <input value={id} type="text" onChange={onChangeID} /></p>
@@ -52,6 +57,7 @@ function Login() {
             <button onClick={onClickLogin}>로그인</button>
             <button onClick={signUp}>일반 회원가입</button>
             <button onClick={kakaoLogin}>카카오 로그인</button>
+            <button onClick={naverLogin}>네이버 로그인</button>
         </div>
     );
 }
