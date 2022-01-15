@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useEffect } from 'react'
 import styled from 'styled-components'
+import {KAKAO_ADD_PROPERTIES} from "../share/kakaoAuth"
 
 const KakaoAuthHandle = (props) => {
   useEffect(() => {
@@ -10,7 +11,7 @@ const KakaoAuthHandle = (props) => {
         .get(`http://localhost:8080/user/kakao/callback?code=${code}`)
         .then((res) => {
           localStorage.setItem('token', res.headers.authorization)
-          window.location.href="/";
+          window.location.href = KAKAO_ADD_PROPERTIES;
         })
     }
     kakaoLogin()
