@@ -6,12 +6,12 @@ function Card({ carpoolType, date, endLocation, memberNum, nickname, notice,
     postId, price, skiResort, startLocation, status, time, userId }) {
 
     function onClick(e) {
-        const SERVER = 'http://localhost:8080';
+        const LOCAL = 'http://localhost:8080';
         const AWS = "http://13.125.35.82";
         const tokenHeader =
             { "Authorization": localStorage.getItem('token') };
 
-        axios.post(AWS + `/chat/room/${postId}`, {}, { headers: tokenHeader })
+        axios.post(LOCAL + `/chat/room/${postId}`, {}, { headers: tokenHeader })
             .then((response) => {
                 const roomId = response.data.roomId;
 

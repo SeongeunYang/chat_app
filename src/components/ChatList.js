@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 
 
 function ChatList({ roomName, roomId, notReadCnt, lastMsg, lastMsgTime, userProfile }) {
-    const SERVER = 'http://localhost:8080';
+    const LOCAL = 'http://localhost:8080';
     const AWS = "http://13.125.35.82";
 
     const tokenHeader =
         { "Authorization": localStorage.getItem('token') };
 
     const onClick = () => {
-        axios.get(AWS + `/chat/room/${roomId}`, { headers: tokenHeader })
+        axios.get(LOCAL + `/chat/room/${roomId}`, { headers: tokenHeader })
             .then((response) => {
                     const roomId = response.data.roomId;
                     localStorage.setItem('wschat.roomId', roomId);

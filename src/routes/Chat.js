@@ -5,7 +5,7 @@ import Stomp from 'stompjs';
 import Modal from 'react-modal';
 
 function Chat() {
-    const SERVER = 'http://localhost:8080';
+    const LOCAL = 'http://localhost:8080';
     const AWS = "http://13.125.35.82";
 
     const tokenHeader = { "Authorization": localStorage.getItem('token') }
@@ -32,7 +32,7 @@ function Chat() {
 
     const [otherInfo, setOtherInfo] = useState(defaultInfo);
 
-    const sock = new SockJS(AWS + "/ws-stomp");
+    const sock = new SockJS(LOCAL + "/ws-stomp");
     const ws = Stomp.over(sock);
 
     // useEffect(() => {
@@ -50,16 +50,16 @@ function Chat() {
             // window.location.href="/";
         });
 
-        axios.get(AWS + `/chat/message/${roomId}`, { headers: tokenHeader })
+        axios.get(LOCAL + `/chat/message/${roomId}`, { headers: tokenHeader })
             .then((res) => {
                 const recvMsgs = res.data;
                 console.log("response : ", recvMsgs);
                 setmsgList(recvMsgs);
             })
 
-        return function cleanup() {
-            ws.disconnect();
-        }
+        // return function cleanup() {
+        //     ws.disconnect();
+        // }
     }, []);
 
     // const closeSocket = () => {
@@ -68,7 +68,7 @@ function Chat() {
 
     const onClick = async() => {
         setModalIsOpen(true)
-        await axios.get(AWS + `/user/introduction/${longRoomId}`, { headers: tokenHeader })
+        await axios.get(LOCAL + `/user/introduction/${longRoomId}`, { headers: tokenHeader })
             .then((res) => {
                 setOtherInfo(res.data);
             })
@@ -83,6 +83,10 @@ function Chat() {
             await ws.send("/pub/chat/message", tokenHeader, JSON.stringify({ type: 'TALK', roomId: roomId, message: msg }));
             setMsg("");
         }
+    }
+
+    const getPhoneNum = async() => {
+        await ws.send("/pub/chat/message", tokenHeader, JSON.stringify({ type: 'PHONE_NUM', roomId: roomId, message: "get phoneNum" }));
     }
 
     const recvMessage = (recv) => {
@@ -101,6 +105,7 @@ function Chat() {
                     <button onClick={() => setModalIsOpen(false)}>닫기</button>
                 </Modal>
                 <button onClick={onClick}>상대방 프로필 확인하기</button>
+                <button onClick={getPhoneNum}> 전화번호 공개하기 </button>
             </div>
             <div>
                 <label>내용</label><input type="text" value={msg} onChange={onChange} />

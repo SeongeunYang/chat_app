@@ -5,12 +5,12 @@ import Card from "../components/Card";
 function Main() {
     const [loading, setLoading] = useState(true);
     const [cards, setCards] = useState([]);
-    const SERVER = 'http://localhost:8080';
+    const LOCAL = 'http://localhost:8080';
     const AWS = "http://13.125.35.82";
     const skiResort = "HighOne";
 
     const getCards = () => {
-        axios.get(AWS + `/board/carpool/${skiResort}?page=1&size=10`)
+        axios.get(LOCAL + `/board/carpool/${skiResort}?page=1&size=10`)
             .then(function (response) {
                 setCards(response.data);
                 setLoading(false);
@@ -24,18 +24,18 @@ function Main() {
 
     useEffect(() => {
         if (localStorage.getItem('token') === null) {
-            window.location.href="/login";
+            window.location.href = "/login";
         }
 
         getCards();
     }, [])
 
     const mychat = () => {
-        window.location.href="/mychats";
+        window.location.href = "/mychats";
     }
 
     const test = () => {
-        window.location.href="/write/freepost";
+        window.location.href = "/write/freepost";
     }
 
     return (
@@ -64,7 +64,7 @@ function Main() {
                     />
                 )
             )}</div>}
-            <button onClick={test}>자유게시물 쓰기</button>
+            <button onClick={test}>자유게시물 쓰기</button>pt>
         </div>
     );
 }

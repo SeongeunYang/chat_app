@@ -9,6 +9,8 @@ import Login from "./routes/Login"
 import FreePost from "./routes/FreePost"
 import MyChatList from "./routes/MyChatList"
 import Snow from "./components/Snow"
+import Region from "./components/Region"
+import KakaoAuthHandle from "./components/KakaoAuthHandle"
 
 function App() {
   return <Router>
@@ -19,6 +21,11 @@ function App() {
       <Route path="/login">
         <Login />
       </Route>
+      <Route 
+        exact 
+        path="/user/kakao/callback"
+        component={KakaoAuthHandle}
+      />
       <Route path="/mychats">
         <MyChatList />
       </Route>
@@ -27,6 +34,9 @@ function App() {
       </Route>
       <Route path="/snow">
         <Snow />
+      </Route>
+      <Route path="/region">
+        <Region />
       </Route>
       <Route path="/">
         <Main />

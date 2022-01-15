@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import {KAKAO_AUTH_URL} from "../share/kakaoAuth"
 
 function Login() {
     const LOCAL = 'http://localhost:8080';
@@ -28,23 +29,29 @@ function Login() {
         }).catch((err) => { alert(err, " 로그인 실패"); });
     }
 
-    useEffect(() => {
+    const signUp = () => {
         axios.post(LOCAL + '/user/signup', {
             username: "tjddm12",
-            password: "diddl123!",
+            password: "diddl123",
             phoneNum: "01012343234",
             nickname: "tjdkl11",
         }).then((res) => {
             alert("회원가입 완료");
         })
         .catch((err) => { alert("이미 회원임..!") });
-    }, []);
+    }
+
+    const kakaoLogin = () => {
+        window.location.href = KAKAO_AUTH_URL;
+    }
 
     return (
         <div>
             <p>ID : <input value={id} type="text" onChange={onChangeID} /></p>
             <p>PW : <input value={pw} type="text" onChange={onChangePW} /></p>
             <button onClick={onClickLogin}>로그인</button>
+            <button onClick={signUp}>일반 회원가입</button>
+            <button onClick={kakaoLogin}>카카오 로그인</button>
         </div>
     );
 }
