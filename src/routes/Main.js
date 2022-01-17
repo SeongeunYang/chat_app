@@ -2,13 +2,31 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Card from "../components/Card";
 import {KAKAO_ADD_PROPERTIES} from "../share/kakaoAuth"
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
 
 function Main() {
     const [loading, setLoading] = useState(true);
     const [cards, setCards] = useState([]);
     const LOCAL = 'http://localhost:8080';
     const AWS = "http://13.125.35.82";
+    const tokenHeader = { "Authorization": localStorage.getItem('token') }
     const skiResort = "HighOne";
+
+    const sock = new SockJS(LOCAL + "/ws-alarm");
+    const ws = Stomp.over(sock);
+
+    useEffect(async() => {
+        let userId = localStorage.getItem('userId');
+        await ws.connect(tokenHeader, () => {
+            ws.subscribe(`/sub/alarm/${userId}`, function (message) {
+                let recv = JSON.parse(message.body);
+                console.log("Alarm : ", recv);
+            }, tokenHeader);
+        }, function (error) {
+            // window.location.href="/";
+        });
+    }, []);
 
     const getCards = () => {
         axios.get(LOCAL + `/board/carpool/${skiResort}?page=1&size=10`)
@@ -39,8 +57,12 @@ function Main() {
         window.location.href = "/mychats";
     }
 
-    const test = () => {
+    const test1 = () => {
         window.location.href = "/write/freepost";
+    }
+
+    const test2 = () => {
+        window.location.href = "/write/shorts";
     }
 
     return (
@@ -70,7 +92,8 @@ function Main() {
                     />
                 )
             )}</div>}
-            <button onClick={test}>자유게시물 쓰기</button>
+            <button onClick={test1}>자유게시물 쓰기</button>
+            <button onClick={test2}>쇼츠 올리기</button>
         </div>
     );
 }

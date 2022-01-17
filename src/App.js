@@ -13,6 +13,7 @@ import Region from "./components/Region"
 import KakaoAuthHandle from "./components/KakaoAuthHandle"
 import KakaoAuthHandle2 from "./components/KakaoAuthHandle2"
 import NaverAuthHandle from "./components/NaverAuthHandle"
+import Shorts from "./routes/Shorts"
 
 function App() {
   return <Router>
@@ -38,6 +39,9 @@ function App() {
       </Route>
       <Route path="/write/freepost">
         <FreePost />
+      </Route>
+      <Route path="/write/shorts">
+        <Shorts />
       </Route>
       <Route path="/snow">
         <Snow />

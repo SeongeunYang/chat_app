@@ -11,6 +11,7 @@ const KakaoAuthHandle2 = (props) => {
           .get(`http://localhost:8080/user/kakao/callback/${userId}?code=${code}`)
           .then((res) => {
             console.log("window.location.href = / 실행")
+            console.log(res.data);
             window.location.href = "/";
           })
       }
