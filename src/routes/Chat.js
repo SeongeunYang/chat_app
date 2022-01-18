@@ -32,13 +32,15 @@ function Chat() {
     }
 
     const [otherInfo, setOtherInfo] = useState(defaultInfo);
-
-    const sock = new SockJS(LOCAL + "/ws-stomp");
-    const ws = Stomp.over(sock);
-
+    const [ws, setWs] = useState();
     // useEffect(() => {
     //     console.log(history.block());
     // }, [history])
+
+    useEffect(async () => {
+        const sock = new SockJS(LOCAL + "/ws-stomp");
+        await setWs(Stomp.over(sock))
+    }, []);
 
     useEffect(async () => {
         await ws.connect(tokenHeader, () => {
@@ -51,17 +53,13 @@ function Chat() {
             // window.location.href="/";
         });
 
-        axios.get(LOCAL + `/chat/message/${roomId}`, { headers: tokenHeader })
+        await axios.get(LOCAL + `/chat/message/${roomId}`, { headers: tokenHeader })
             .then((res) => {
                 const recvMsgs = res.data;
                 console.log("response : ", recvMsgs);
                 setmsgList(recvMsgs);
             })
-
-        // return function cleanup() {
-        //     ws.disconnect();
-        // }
-    }, []);
+    }, [ws]);
 
     // const closeSocket = () => {
     //     ws.disconnect();
@@ -69,7 +67,7 @@ function Chat() {
 
     const onClick = async () => {
         setModalIsOpen(true)
-        await axios.get(TEST_SERVER + `/user/introduction/${roomId}`, { headers: tokenHeader })
+        await axios.get(LOCAL + `/user/introduction/${roomId}`, { headers: tokenHeader })
             .then((res) => {
                 setOtherInfo(res.data);
             })
@@ -92,7 +90,7 @@ function Chat() {
 
     const closeChat = async () => {
         console.log("나가기!!!!!!")
-        await axios.delete(LOCAL + `/chat/room/${roomId}`, { headers: tokenHeader })
+        await axios.delete(TEST_SERVER + `/chat/room/${roomId}`, { headers: tokenHeader })
             .then((res) => {
                 window.location.href = "/";
             })

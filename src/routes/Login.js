@@ -20,7 +20,7 @@ function Login() {
     }
 
     const onClickLogin = () => {
-        axios.post(LOCAL + '/user/login', {
+        axios.post(TEST_SERVER + '/user/login', {
             username: id,
             password: pw,
         }).then((res) => {

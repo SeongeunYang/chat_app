@@ -4,6 +4,7 @@ import axios from "axios";
 function Shorts() {
     const LOCAL = 'http://localhost:8080';
     const AWS = "http://13.125.35.82";
+    let TEST_SERVER = "http://3.34.19.50:8080"
     const skiResort = "HighOne";
     const tokenHeader =
         { "Authorization": localStorage.getItem('token') };
@@ -27,7 +28,7 @@ function Shorts() {
         formData.append('videoFile', videoFile);
         formData.append("title", new Blob([JSON.stringify(title)], { type: "application/json" }))
 
-        axios.post(LOCAL + `/shorts`, formData, { headers: tokenHeader })
+        axios.post(TEST_SERVER + `/shorts`, formData, { headers: tokenHeader })
             .then((res) => {
                 console.log("sucess : ", res);
                 console.log(res.data.videoPath);
@@ -46,6 +47,7 @@ function Shorts() {
                 <video
                     src={res}
                     autoPlay // 자동재생
+                    controls
                     muted // 음소거 -> 안하면 좋겠지만 이거 안하면 자동 재생이 안돼요
                     loop // 반복 재생
                 >
