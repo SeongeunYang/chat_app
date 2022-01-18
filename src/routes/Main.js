@@ -10,23 +10,8 @@ function Main() {
     const [cards, setCards] = useState([]);
     const LOCAL = 'http://localhost:8080';
     const AWS = "http://13.125.35.82";
-    const tokenHeader = { "Authorization": localStorage.getItem('token') }
+    let TEST_SERVER = "http://3.34.19.50:8080"
     const skiResort = "HighOne";
-
-    const sock = new SockJS(LOCAL + "/ws-alarm");
-    const ws = Stomp.over(sock);
-
-    useEffect(async() => {
-        let userId = localStorage.getItem('userId');
-        await ws.connect(tokenHeader, () => {
-            ws.subscribe(`/sub/alarm/${userId}`, function (message) {
-                let recv = JSON.parse(message.body);
-                console.log("Alarm : ", recv);
-            }, tokenHeader);
-        }, function (error) {
-            // window.location.href="/";
-        });
-    }, []);
 
     const getCards = () => {
         axios.get(LOCAL + `/board/carpool/${skiResort}?page=1&size=10`)

@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 function ChatList({ roomName, roomId, notReadCnt, lastMsg, lastMsgTime, userProfile }) {
     const LOCAL = 'http://localhost:8080';
     const AWS = "http://13.125.35.82";
+    let TEST_SERVER = "http://3.34.19.50:8080"
 
     const tokenHeader =
         { "Authorization": localStorage.getItem('token') };
@@ -12,14 +13,14 @@ function ChatList({ roomName, roomId, notReadCnt, lastMsg, lastMsgTime, userProf
     const onClick = () => {
         axios.get(LOCAL + `/chat/room/${roomId}`, { headers: tokenHeader })
             .then((response) => {
-                    const roomId = response.data.roomId;
-                    localStorage.setItem('wschat.roomId', roomId);
-                    localStorage.setItem('wschat.longRoomId', response.data.longRoomId);
+                const roomId = response.data.roomId;
+                localStorage.setItem('wschat.roomId', roomId);
+                localStorage.setItem('wschat.longRoomId', response.data.longRoomId);
 
-                    window.location.href = `/chat/myroom/${roomId}`;
-                }
+                window.location.href = `/chat/myroom/${roomId}`;
+            }
             )
-            .catch(response => { alert("존재하지 않는 채팅방입니다."); });
+            .catch(response => { alert(response.response.data.errorMessage); });
     }
 
     return (

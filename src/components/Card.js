@@ -9,6 +9,8 @@ function Card({ carpoolType, date, endLocation, memberNum, nickname, notice,
     function onClick(e) {
         const LOCAL = 'http://localhost:8080';
         const AWS = "http://13.125.35.82";
+        let TEST_SERVER = "http://3.34.19.50:8080"
+
         const tokenHeader =
             { "Authorization": localStorage.getItem('token') };
 
@@ -25,8 +27,10 @@ function Card({ carpoolType, date, endLocation, memberNum, nickname, notice,
                 window.location.href = "/chat/myroom";
             })
             .catch((err) => {
-                if(err.response.data.errorMessage === "추가 동의 항목이 필요합니다."){
+                if(err.response.data.errorMessage === "추가 동의 항목이 필요합니다.") {
                     window.location.href=KAKAO_ADD_PROPERTIES;
+                } else if(err.response.data.errorMessage === "전화번호 인증이 필요한 서비스입니다.") {
+                    // 프로필 작성 페이지로 보내버리기
                 }
                 alert(err.response.data.errorMessage);
             });

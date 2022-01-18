@@ -5,6 +5,7 @@ import ChatList from "../components/ChatList";
 function MyChatList () {
     const LOCAL = 'http://localhost:8080';
     const AWS = "http://13.125.35.82";
+    let TEST_SERVER = "http://3.34.19.50:8080"
 
     const [chats, setChats] = useState([]);
     const tokenHeader =

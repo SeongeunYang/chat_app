@@ -7,6 +7,7 @@ import Modal from 'react-modal';
 function Chat() {
     const LOCAL = 'http://localhost:8080';
     const AWS = "http://13.125.35.82";
+    let TEST_SERVER = "http://3.34.19.50:8080"
 
     const tokenHeader = { "Authorization": localStorage.getItem('token') }
 
@@ -39,7 +40,7 @@ function Chat() {
     //     console.log(history.block());
     // }, [history])
 
-    useEffect(async() => {
+    useEffect(async () => {
         await ws.connect(tokenHeader, () => {
             ws.subscribe(`/sub/chat/room/${roomId}`, function (message) {
                 let recv = JSON.parse(message.body);
@@ -66,9 +67,9 @@ function Chat() {
     //     ws.disconnect();
     // }
 
-    const onClick = async() => {
+    const onClick = async () => {
         setModalIsOpen(true)
-        await axios.get(LOCAL + `/user/introduction/${longRoomId}`, { headers: tokenHeader })
+        await axios.get(TEST_SERVER + `/user/introduction/${roomId}`, { headers: tokenHeader })
             .then((res) => {
                 setOtherInfo(res.data);
             })
@@ -78,15 +79,23 @@ function Chat() {
         setMsg(e.target.value);
     }
 
-    const sendMessage = async() => {
-        if(msg !== ""){
+    const sendMessage = async () => {
+        if (msg !== "") {
             await ws.send("/pub/chat/message", tokenHeader, JSON.stringify({ type: 'TALK', roomId: roomId, message: msg }));
             setMsg("");
         }
     }
 
-    const getPhoneNum = async() => {
+    const getPhoneNum = async () => {
         await ws.send("/pub/chat/message", tokenHeader, JSON.stringify({ type: 'PHONE_NUM', roomId: roomId, message: "get phoneNum" }));
+    }
+
+    const closeChat = async () => {
+        console.log("나가기!!!!!!")
+        await axios.delete(LOCAL + `/chat/room/${roomId}`, { headers: tokenHeader })
+            .then((res) => {
+                window.location.href = "/";
+            })
     }
 
     const recvMessage = (recv) => {
@@ -104,6 +113,7 @@ function Chat() {
                     <div><img style={{ width: 100, height: 100 }} src={otherInfo.vacImg} /></div>
                     <button onClick={() => setModalIsOpen(false)}>닫기</button>
                 </Modal>
+                <button onClick={closeChat}>채팅방 나가기</button>
                 <button onClick={onClick}>상대방 프로필 확인하기</button>
                 <button onClick={getPhoneNum}> 전화번호 공개하기 </button>
             </div>
@@ -117,7 +127,7 @@ function Chat() {
                     <img src={item.senderImg} style={{
                         width: 50,
                         height: 50
-                }}/>
+                    }} />
                     <h3>{item.sender} : {item.message} ({item.createdAt})</h3>
                 </div>
             ))}

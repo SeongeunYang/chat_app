@@ -6,6 +6,7 @@ import {NAVER_AUTH_URL} from "../share/naverAuth"
 function Login() {
     const LOCAL = 'http://localhost:8080';
     const AWS = "http://13.125.35.82";
+    let TEST_SERVER = "http://3.34.19.50:8080"
 
     const [id, setId] = useState("tjddm12");
     const [pw, setPw] = useState("diddl123!");
