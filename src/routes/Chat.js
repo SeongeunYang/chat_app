@@ -59,6 +59,12 @@ function Chat() {
                 console.log("response : ", recvMsgs);
                 setmsgList(recvMsgs);
             })
+
+        return () => {
+            ws.unsubscribe("sub-0", () => {
+
+            }, tokenHeader);
+        };
     }, [ws]);
 
     // const closeSocket = () => {
@@ -90,7 +96,7 @@ function Chat() {
 
     const closeChat = async () => {
         console.log("나가기!!!!!!")
-        await axios.delete(TEST_SERVER + `/chat/room/${roomId}`, { headers: tokenHeader })
+        await axios.delete(LOCAL + `/chat/room/${roomId}`, { headers: tokenHeader })
             .then((res) => {
                 window.location.href = "/";
             })

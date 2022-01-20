@@ -5,11 +5,12 @@ import styled from 'styled-components'
 const NaverAuthHandle = (props) => {
     let LOCAL = "localhost:8080"
     let TEST_SERVER = "3.34.19.50:8080"
+    let NGINX = "seongeunyang.shop"
     useEffect(() => {
         let code = new URL(window.location.href).searchParams.get('code')
         const kakaoLogin = async () => {
             await axios
-                .get(`http://${LOCAL}/user/naver/callback?code=${code}`)
+                .get(`https://${NGINX}/user/naver/callback?code=${code}`)
                 .then((res) => {
                     localStorage.setItem('token', res.headers.authorization)
                     console.log(res.data);

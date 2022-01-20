@@ -28,7 +28,7 @@ function Shorts() {
         formData.append('videoFile', videoFile);
         formData.append("title", new Blob([JSON.stringify(title)], { type: "application/json" }))
 
-        axios.post(TEST_SERVER + `/shorts`, formData, { headers: tokenHeader })
+        axios.post(LOCAL + `/shorts`, formData, { headers: tokenHeader })
             .then((res) => {
                 console.log("sucess : ", res);
                 console.log(res.data.videoPath);
@@ -38,11 +38,27 @@ function Shorts() {
             })
     }
 
+    const getShorts = () => {
+        axios.get(LOCAL + `/shorts`)
+            .then((response) => {
+                console.log(response.data);
+                setRes(response.data.videoPath);
+            }
+            )
+            .catch(response => { alert(response.response.data.errorMessage); });
+    }
+
     return (
         <div>
             <p><input type="file" onChange={uploadImg} /></p>
             <p>제목 : <input value={title} type="text" onChange={uploadTitle} /></p>
             <button onClick={onClick}>보내기</button>
+            <button onClick={getShorts}>조회하기</button>
+            <div>
+                <video src={res}>
+
+                </video>
+            </div>
             <div>
                 <video
                     src={res}

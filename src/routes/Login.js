@@ -8,8 +8,8 @@ function Login() {
     const AWS = "http://13.125.35.82";
     let TEST_SERVER = "http://3.34.19.50:8080"
 
-    const [id, setId] = useState("tjddm12");
-    const [pw, setPw] = useState("diddl123!");
+    const [id, setId] = useState("skifriend1");
+    const [pw, setPw] = useState("asdf12");
 
     const onChangeID = (e) => {
         setId(e.target.value);
@@ -20,7 +20,7 @@ function Login() {
     }
 
     const onClickLogin = () => {
-        axios.post(TEST_SERVER + '/user/login', {
+        axios.post(LOCAL + '/user/login', {
             username: id,
             password: pw,
         }).then((res) => {
